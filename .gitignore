@@ -1,0 +1,38 @@
+# 3D Model Files
+*.glb
+*.gltf
+*.fbx
+*.obj
+*.mtl
+*.blend
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# OS Files
+.DS_Store
+Thumbs.db
+.windows-build-tools/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build & Dist
+dist/
+build/
+*.log
+
+# Temporary Files
+*.tmp
+.cache/
