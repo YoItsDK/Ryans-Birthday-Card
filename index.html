@@ -951,8 +951,8 @@ try {
     camera.position.set(pos.x, pos.y, pos.z);
     console.log(`✓ Loaded saved starting camera: X=${pos.x.toFixed(2)}, Y=${pos.y.toFixed(2)}, Z=${pos.z.toFixed(2)}`);
   } else {
-    camera.position.set(10.15, 14.39, -0.48);
-    console.log(`✓ Using default camera position: (10.15, 14.39, -0.48)`);
+    camera.position.set(9.16, 12.99, -0.43);
+    console.log(`✓ Using default camera position: (9.16, 12.99, -0.43)`);
   }
   camera.updateProjectionMatrix();
   console.log("Camera created with clipping range: 0.1m - 1000m");
@@ -1033,8 +1033,8 @@ try {
     controls.target.set(viewState.target.x, viewState.target.y, viewState.target.z);
     console.log(`✓ Restored controls target: (${viewState.target.x}, ${viewState.target.y}, ${viewState.target.z})`);
   } else {
-    controls.target.set(-1.53, 1.44, -0.37);
-    console.log(`✓ Using default controls target: (-1.53, 1.44, -0.37)`);
+    controls.target.set(0, 0, 0);
+    console.log(`✓ Using default controls target: (0, 0, 0)`);
   }
   
   controls.update();
@@ -2574,7 +2574,7 @@ try {
         const pos = JSON.parse(savedStartingCam);
         document.getElementById('debug-camera-start').textContent = `${pos.x.toFixed(2)},${pos.y.toFixed(2)},${pos.z.toFixed(2)}`;
       } else {
-        document.getElementById('debug-camera-start').textContent = '10.15,14.39,-0.48 (default)';
+        document.getElementById('debug-camera-start').textContent = '9.16,12.99,-0.43 (default)';
       }
       
       // Show full camera state details
