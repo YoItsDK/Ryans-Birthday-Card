@@ -3,8 +3,11 @@ name: Build and Deploy to GitHub Pages
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
@@ -14,17 +17,17 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
       
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
+    - name: Setup Pages
+      uses: actions/configure-pages@v3
+      
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v2
       with:
-        node-version: '16'
+        path: './'
         
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./
-        exclude_assets: '.github,node_modules,build.js,package.json,package-lock.json,.gitignore'
-        
+      id: deployment
+      uses: actions/deploy-pages@v2
+      
     - name: Print deployment info
       run: echo "✅ Birthday Card deployed to GitHub Pages!"
