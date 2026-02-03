@@ -951,8 +951,8 @@ try {
     camera.position.set(pos.x, pos.y, pos.z);
     console.log(`✓ Loaded saved starting camera: X=${pos.x.toFixed(2)}, Y=${pos.y.toFixed(2)}, Z=${pos.z.toFixed(2)}`);
   } else {
-    camera.position.set(9.16, 12.99, -0.43);
-    console.log(`✓ Using default camera position: (9.16, 12.99, -0.43)`);
+    camera.position.set(8.6169, 13.9496, -0.2345);
+    console.log(`✓ Using default camera position: (8.6169, 13.9496, -0.2345)`);
   }
   camera.updateProjectionMatrix();
   console.log("Camera created with clipping range: 0.1m - 1000m");
@@ -2574,7 +2574,7 @@ try {
         const pos = JSON.parse(savedStartingCam);
         document.getElementById('debug-camera-start').textContent = `${pos.x.toFixed(2)},${pos.y.toFixed(2)},${pos.z.toFixed(2)}`;
       } else {
-        document.getElementById('debug-camera-start').textContent = '9.16,12.99,-0.43 (default)';
+        document.getElementById('debug-camera-start').textContent = '8.6169,13.9496,-0.2345 (default)';
       }
       
       // Show full camera state details
