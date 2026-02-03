@@ -2074,12 +2074,12 @@ try {
     // Initialize border collision system
     initializeBorderCollision();
     
-    // Skip collision check on initial spawn - allow free placement
-    window.skipCollisionCheck = true;
+    // Force camera position within bounds immediately after loading
     setTimeout(() => {
-      window.skipCollisionCheck = false;
-      console.log("✓ Collision detection enabled");
-    }, 500);
+      checkCameraCollision();
+      console.log("✓ Camera position corrected to be within collision bounds");
+      console.log(`  Final camera position: (${camera.position.x.toFixed(2)}, ${camera.position.y.toFixed(2)}, ${camera.position.z.toFixed(2)})`);
+    }, 100);
     },(progress)=>{
     const pct = Math.min(Math.round(progress.loaded/progress.total*100), 100);
     console.log("Loading:",pct+"%",progress.loaded,"/",progress.total);
@@ -4406,7 +4406,7 @@ try {
   
   // Bulletproof bounding box collision with corner detection - keep camera INSIDE the mesh bounds with no slips
   function checkCameraCollision() {
-    if (window.skipCollisionCheck || !cameraCollisionEnabled || borderMeshes.length === 0) return;
+    if (!cameraCollisionEnabled || borderMeshes.length === 0) return;
     
     const camPos = camera.position;
     const radius = collisionRadius;
