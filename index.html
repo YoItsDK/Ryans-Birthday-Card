@@ -2053,20 +2053,31 @@ try {
     };
     root.children.forEach(child => logTree(child, 0));
     console.log('========================');
+    const hasSavedViewState = window.savedViewState || localStorage.getItem('startingCameraPos');
     if (!cameraFound) {
       // Using hardcoded camera position, skip auto-frame
       controls.target.set(0, 0, 0);
       controls.update();
       console.log("Using hardcoded camera position");
     } else {
-      // Found Blender camera, skip auto-frame
+      // Found Blender camera, but override to default when no saved view state
       controls.target.set(0, 0, 0);
       controls.update();
       console.log("Using Blender camera");
     }
     
-    // Always call frame to ensure proper camera positioning
-    frame(root);
+    if (!hasSavedViewState) {
+      camera.position.set(8.6169, 13.9496, -0.2345);
+      controls.target.set(0, 0, 0);
+      camera.updateProjectionMatrix();
+      controls.update();
+      console.log("Using hardcoded default camera position (no saved view state)");
+    }
+    
+    // Only auto-frame when a saved view state exists (otherwise keep defaults)
+    if (hasSavedViewState) {
+      frame(root);
+    }
     
     initialCam=camera.position.clone();
     initialTarget=controls.target.clone();
