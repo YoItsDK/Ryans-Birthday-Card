@@ -38,7 +38,7 @@ export function initializeThreeJs() {
     camera.position.set(pos.x, pos.y, pos.z);
     console.log(`Loaded saved starting camera: X=${pos.x.toFixed(2)}, Y=${pos.y.toFixed(2)}, Z=${pos.z.toFixed(2)}`);
   } else {
-    camera.position.set(9.81, 13.29, -0.52);
+    camera.position.set(8.6169, 13.9496, -0.2345);
   }
   camera.updateProjectionMatrix();
   console.log('Camera created with clipping range: 0.1m - 1000m');
