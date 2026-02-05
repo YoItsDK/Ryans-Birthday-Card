@@ -311,13 +311,17 @@ void main() {
 }
 </style>
 
-<div id="ui">
+<div id="ui" style="display: none;">
   <button id="reset">Reset view</button>
   <button id="auto">Auto-rotate: Off</button>
   <button id="fullscreen" title="Press F to toggle fullscreen">Fullscreen</button>
   <button id="download" title="Download as HTML file">Download Card</button>
   <div id="status" style="color: white; font-size: 14px; margin-left: 20px;">Loading...</div>
   <div id="perf-monitor" style="color: #4eff7f; font-size: 12px; margin-left: 20px; display: none;">FPS: <span id="fps">60</span> | Memory: <span id="memory">0</span>MB</div>
+</div>
+
+<!-- UI Toggle Button (always visible) -->
+<button id="ui-toggle" style="position: fixed; top: 12px; left: 12px; padding: 8px 12px; background: rgba(0,255,0,0.2); border: 2px solid rgba(0,255,0,0.6); color: #00ff00; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 12px; z-index: 999; font-family: monospace;" title="Press H to toggle UI (Ctrl+D for debug menu)">🎮 UI</button>
 </div>
 <div id="bones-panel" style="position: fixed; top: 60px; left: 12px; background: rgba(0,0,0,0.95); display: none; flex-direction: column; font-size: 12px; border: 2px solid rgba(100,150,255,0.6); border-radius: 6px; width: 320px; height: 600px; box-shadow: 0 0 20px rgba(100,150,255,0.2); z-index: 100; user-select: none; color: white; font-family: 'Courier New', monospace;">
   <!-- Terminal Title Bar -->
@@ -2170,6 +2174,16 @@ try {
       document.exitFullscreen();
     }
   };
+
+  // UI Toggle Button
+  const uiToggleBtn = document.getElementById('ui-toggle');
+  const ui = document.getElementById('ui');
+  uiToggleBtn.addEventListener('click', () => {
+    const hidden = ui.style.display === 'none';
+    ui.style.display = hidden ? 'flex' : 'none';
+    uiToggleBtn.textContent = hidden ? '🎮 UI ✕' : '🎮 UI';
+    uiToggleBtn.style.background = hidden ? 'rgba(0,255,0,0.3)' : 'rgba(0,255,0,0.2)';
+  });
   
   // Toggle performance monitor
   document.addEventListener('keydown', (e) => {
@@ -3526,12 +3540,16 @@ try {
         document.exitFullscreen();
       }
     } else if (e.key.toLowerCase() === 'h') {
-      // Toggle GUI visibility
+      // Toggle GUI visibility (H key hides all UI)
       e.preventDefault();
       const ui = document.getElementById("ui");
       const bonesPanel = document.getElementById("bones-panel");
-      ui.style.display = ui.style.display === 'none' ? 'flex' : 'none';
-      bonesPanel.style.display = bonesPanel.style.display === 'none' ? 'block' : 'none';
+      const debugMenu = document.getElementById("debug-menu");
+      const hidden = ui.style.display === 'none';
+      ui.style.display = hidden ? 'flex' : 'none';
+      bonesPanel.style.display = hidden ? 'block' : 'none';
+      if (debugMenu) debugMenu.style.display = hidden ? 'block' : 'none';
+      console.log(`UI ${hidden ? 'shown' : 'hidden'} (Press H to toggle)`);
     } else if (e.key.toLowerCase() === 'a') {
       // Toggle animation panel visibility (A key)
       e.preventDefault();
